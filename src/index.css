@@ -1,4 +1,8 @@
 @import url(../src/vendor/normalize.css);
 @import url(./vendor/fonts/font.css);
 @import url(../src/components/App/App.css);
+@import url(../src/components/NavigationBar/NavigationBar.css);
+@import url(../src/components/NavigationMenu/NavigationMenu.css);
+
+
 

@@ -1,0 +1,24 @@
+.navigation-menu {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 22px;
+}
+
+.navigation-menu__link {
+  box-sizing: border-box;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 20px;
+  text-align: center;
+  color: #97979b;
+  margin: 0;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.navigation-menu__link_active {
+  font-weight: 600;
+  color: #050510;
+  border-bottom: 2px solid #6534FF;
+}

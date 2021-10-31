@@ -1,0 +1,80 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 16px 0px 16px;
+  border-bottom: 1px solid #C3C3C6;;
+  box-sizing: border-box;
+}
+
+.navigation-bar {
+  display: flex;
+  flex-direction: column;
+}
+
+.navigation-bar__title {
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+  color: #050510;
+  margin: 0;
+  margin-left: 8px;
+}
+
+.navigation-bar__fieldset {
+  display: flex;
+  border: none;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  margin-top: 18px;
+}
+
+.navigation-bar__label {
+  width: 100%;
+}
+
+.navigation-bar__input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0;
+  border-radius: 16px;
+  height: 40px;
+  border: none;
+  outline: none;
+  padding-left: 44px;
+  cursor: pointer;
+  caret-color: #6534ff;
+
+  font-size: 15px;
+  line-height: 20px;
+  color: #050510;
+  font-weight: normal;
+
+  background: url("../../images/search-button.svg") no-repeat 10px #f7f7f8;
+}
+
+.navigation-bar__input::placeholder {
+  color: #c3c3c6;
+  font-weight: 500;
+}
+
+.navigation-bar__input:focus {
+  background-image: url("../../images/search-button-black.svg");
+}
+
+.navigation-bar__filter {
+  width: 20px;
+  height: 20px;
+  background: url("../../images/filter-button.svg") no-repeat;
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: transform .2s;
+}
+
+.navigation-bar__filter:hover {
+    transform: scale(1.1)
+}
