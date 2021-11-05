@@ -1,0 +1,63 @@
+.emploee {
+  list-style: none;
+  display: flex;
+  margin-bottom: 24px;
+}
+
+.emploee:last-of-type {
+  margin: 0;
+}
+
+.emploee__image {
+  width: 72px;
+  height: 72px;
+  border-radius: 50px;
+  margin-right: 16px;
+}
+
+.emploee__info {
+  display: flex;
+  flex-direction: column;
+}
+
+.emploee__name {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  color: #050510;
+  margin: 0;
+}
+
+.emploee__initials {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  color: #97979b;
+  margin-left: 4px;
+}
+
+.emploee__specialization {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 16px;
+  color: #55555c;
+  margin-top: 6px;
+}
+
+.emploee__preload {
+  background: linear-gradient(90deg, #f3f3f6 0%, #fafafa 100%);
+  border-radius: 50px;
+}
+
+.emploee__preload_name {
+  width: 144px;
+  height: 16px;
+}
+
+.emploee__preload_specialization {
+  width: 80px;
+  height: 12px;
+}
