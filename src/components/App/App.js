@@ -2,6 +2,7 @@ import React from "react";
 import NavigationBar from "../NavigationBar/NavigationBar";
 import { Switch } from "react-router-dom";
 import Popup from "../Popup/Popup";
+import Main from "../Main/Main";
 
 function App() {
   const [popupOpen, setPopupOpen] = React.useState(false);
@@ -33,7 +34,9 @@ function App() {
   return (
     <div className="page__container">
       <NavigationBar setPopupOpen={setPopupOpen}></NavigationBar>
-      <Switch></Switch>
+      <Switch>
+        <Main exact path="/"></Main>
+      </Switch>
 
       <Popup
           handleOverlayClose={handleOverlayClose}
