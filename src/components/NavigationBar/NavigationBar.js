@@ -1,7 +1,7 @@
 import React from "react";
 import NavigationMenu from "../NavigationMenu/NavigationMenu";
 
-function NavigationBar() {
+function NavigationBar({ setPopupOpen }) {
   const [query, setQuery] = React.useState("");
 
   function handleSearchChange(e) {
@@ -10,7 +10,7 @@ function NavigationBar() {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    console.log(query)
+    console.log(query);
   };
 
   return (
@@ -29,13 +29,15 @@ function NavigationBar() {
               placeholder="Введи имя, тег, почту..."
             ></input>
           </label>
-          <button
-            className="navigation-bar__filter"
-            type="click"
-            onClick={() => {}}
-          ></button>
         </fieldset>
       </form>
+      <button
+        className="navigation-bar__filter"
+        type="click"
+        onClick={() => {
+          setPopupOpen(true);
+        }}
+      ></button>
       <NavigationMenu></NavigationMenu>
     </header>
   );

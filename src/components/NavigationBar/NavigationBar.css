@@ -4,6 +4,7 @@
   padding: 16px 16px 0px 16px;
   border-bottom: 1px solid #C3C3C6;;
   box-sizing: border-box;
+  position: relative;
 }
 
 .navigation-bar {
@@ -67,8 +68,8 @@
   height: 20px;
   background: url("../../images/filter-button.svg") no-repeat;
   position: absolute;
-  right: 14px;
-  top: 14px;
+  right: 30px;
+  top: 76px;
   outline: none;
   border: none;
   cursor: pointer;
