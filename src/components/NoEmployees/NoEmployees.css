@@ -1,0 +1,32 @@
+.no-employees {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 149px;
+}
+
+.no-employees__image {
+  height: 56px;
+  width: 56px;
+}
+
+.no-employees__title {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 22px;
+  color: #050510;
+  margin: 0;
+  margin-top: 8px;
+}
+
+.no-employees__description {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+  color: #97979b;
+  margin: 0;
+  margin-top: 12px;
+}
