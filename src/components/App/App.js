@@ -3,6 +3,7 @@ import NavigationBar from "../NavigationBar/NavigationBar";
 import { Switch, Route } from "react-router-dom";
 import Popup from "../Popup/Popup";
 import Main from "../Main/Main";
+import Profile from "../Profile/Profile";
 
 function App() {
   const [popupOpen, setPopupOpen] = React.useState(false);
@@ -32,10 +33,13 @@ function App() {
   });
   return (
     <div className="page__container">
-      <NavigationBar setPopupOpen={setPopupOpen}></NavigationBar>
       <Switch>
         <Route exact path="/">
+          <NavigationBar setPopupOpen={setPopupOpen}></NavigationBar>
           <Main></Main>
+        </Route>
+        <Route path='/page'>
+          <Profile></Profile>
         </Route>
       </Switch>
       <Popup
