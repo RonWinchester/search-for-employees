@@ -1,12 +1,11 @@
 import React from "react";
 import NavigationBar from "../NavigationBar/NavigationBar";
-import { Switch } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import Popup from "../Popup/Popup";
 import Main from "../Main/Main";
 
 function App() {
   const [popupOpen, setPopupOpen] = React.useState(false);
-
 
   //Работа Popup
   function closeAllPopups() {
@@ -35,14 +34,15 @@ function App() {
     <div className="page__container">
       <NavigationBar setPopupOpen={setPopupOpen}></NavigationBar>
       <Switch>
-        <Main exact path="/"></Main>
+        <Route exact path="/">
+          <Main></Main>
+        </Route>
       </Switch>
-
       <Popup
-          handleOverlayClose={handleOverlayClose}
-          isOpen={popupOpen}
-          onClose={closeAllPopups}
-        ></Popup>
+        handleOverlayClose={handleOverlayClose}
+        isOpen={popupOpen}
+        onClose={closeAllPopups}
+      ></Popup>
     </div>
   );
 }
