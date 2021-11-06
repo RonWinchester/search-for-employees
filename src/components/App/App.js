@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import NavigationBar from "../NavigationBar/NavigationBar";
 import { Switch, Route } from "react-router-dom";
 import Popup from "../Popup/Popup";
@@ -7,6 +8,32 @@ import Profile from "../Profile/Profile";
 
 function App() {
   const [popupOpen, setPopupOpen] = React.useState(false);
+  const [employees, setEmployess] = React.useState({});
+  const [preloader, setPreloader] = React.useState(true);
+  const [error, setError] = React.useState(false);
+
+  const options = {
+    method: "GET",
+    url: "https://stoplight.io/mocks/kode-education/trainee-test/25143926/users",
+    headers: {
+      "Content-Type": "application/json",
+      Prefer: "code=200, example=success",
+    },
+  };
+
+  React.useEffect(() => {
+    axios
+      .request(options)
+      .then((response) => {
+        setError(false);
+        setEmployess(response.data.items);
+        setPreloader(false);
+      })
+      .catch(function (error) {
+        setError(true);
+        console.error(error);
+      });
+  }, []);
 
   //Работа Popup
   function closeAllPopups() {
@@ -36,9 +63,13 @@ function App() {
       <Switch>
         <Route exact path="/">
           <NavigationBar setPopupOpen={setPopupOpen}></NavigationBar>
-          <Main></Main>
+          <Main
+            employees={employees}
+            preloader={preloader}
+            error={error}
+          ></Main>
         </Route>
-        <Route path='/page'>
+        <Route path="/page">
           <Profile></Profile>
         </Route>
       </Switch>
