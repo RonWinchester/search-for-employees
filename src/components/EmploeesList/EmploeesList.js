@@ -1,21 +1,20 @@
 import React from "react";
 import Emploee from "../Employee/Employee";
-import goose from "../../images/goose.png";
+import NoEmployees from "../NoEmployees/NoEmployees";
 
-function EmploeesList() {
-  const arr = Array.from({ length: 8 }, () => ({
-    name: 'Имя Фамилия',
-    ini: 'Na',
-    pro: 'Специальность',
-    img: goose
-  }))
-
+function EmploeesList({ employees, preloader }) {
   return (
-    <ul className="emploees-list">
-      {arr.map((i, index) => (
-        <Emploee key={index} {...i}></Emploee>
-      ))}
-    </ul>
+    <>
+      {employees.length > 0 ? (
+        <ul className="emploees-list">
+          {employees.map((i, index) => (
+            <Emploee key={index} {...i} preloader={preloader}></Emploee>
+          ))}
+        </ul>
+      ) : (
+        <NoEmployees></NoEmployees>
+      )}
+    </>
   );
 }
 
