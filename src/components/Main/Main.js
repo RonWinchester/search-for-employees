@@ -1,11 +1,10 @@
 import React from "react";
 import CriticalError from "../CriticalError/CriticalError";
 import EmploeesList from "../EmploeesList/EmploeesList";
-import NoEmployees from "../NoEmployees/NoEmployees";
 
-function Main() {
-  const [error, setError] = React.useState(false);
-  const [employees, setEmpoyess] = React.useState(true)
+
+function Main({ employees, preloader, error }) {
+  const arr = Array.from({ length: 8 }, () => ({}));
 
   return (
     <>
@@ -13,7 +12,11 @@ function Main() {
         <CriticalError />
       ) : (
         <main className="main">
-          {employees ? <EmploeesList /> : <NoEmployees/>}
+          {preloader ? (
+            <EmploeesList employees={arr} preloader={preloader} />
+          ) : (
+            <EmploeesList employees={employees} preloader={preloader} />
+          )}
         </main>
       )}
     </>
