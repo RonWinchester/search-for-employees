@@ -1,0 +1,44 @@
+.critical-error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 133px;
+}
+
+.critical-error__image {
+  height: 56px;
+  width: 56px;
+}
+
+.critical-error__title {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 22px;
+  color: #050510;
+  margin: 0;
+  margin-top: 8px;
+}
+
+.critical-error__description {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+  color: #97979b;
+  margin: 0;
+  margin-top: 12px;
+}
+
+.critical-error__button {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  color: #6534FF;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+  margin-top: 12px;
+}
