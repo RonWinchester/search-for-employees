@@ -12,7 +12,7 @@ function NavigationBar({ setPopupOpen }) {
     evt.preventDefault();
     console.log(query);
   };
-
+  
   return (
     <header className="header">
       <form className="navigation-bar" onSubmit={handleSubmit}>
@@ -43,4 +43,5 @@ function NavigationBar({ setPopupOpen }) {
   );
 }
 
-export default NavigationBar;
+export default React.memo(NavigationBar);
+/* export default NavigationBar; */
