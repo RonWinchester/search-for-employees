@@ -1,23 +1,26 @@
 import React from "react";
-import goose from "../../images/goose.png";
+import { useHistory } from "react-router-dom";
 
-function Profile() {
+function Profile(props) {
+  const history = useHistory();
+  const { firstName, lastName, userTag, position, avatarUrl, birthday, phone } =  props.employee;
+
   return (
     <div className="profile">
       <div className="profile__info">
-        <button className='profile__button'></button>
+        <button className='profile__button' onClick={() => history.goBack()}></button>
         <article className='profile__bio'>
-          <img src={goose} alt={goose} className='profile__image'></img>
+          <img src={avatarUrl} alt={`${firstName} ${lastName}`} className='profile__image'></img>
           <h1 className='profile__title'>
-            Алиса Иванова<span className='profile__initials'>al</span>
+          {`${firstName} ${lastName}`}<span className='profile__initials'>{userTag}</span>
           </h1>
-          <p className='profile__specialization'>Designer</p>
+          <p className='profile__specialization'>{position}</p>
         </article>
       </div>
       <div className="profile__contact">
-        <p className='profile__date'>5 июня 1996</p>
+        <p className='profile__date'>{birthday}</p>
         <span className='profile__years'>24 года</span>
-        <a href="tel" className='profile__tel'>+7 (999) 900 90 90</a>
+        <a href="tel" className='profile__tel'>{phone}</a>
       </div>
     </div>
   );
