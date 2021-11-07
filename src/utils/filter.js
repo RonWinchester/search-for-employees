@@ -3,6 +3,11 @@ export function handleSelectionProfession(employees, profession) {
   employees.forEach((employee) => {
     employee.department === profession && result.push(employee);
   });
+
+  localStorage.setItem(
+    `${profession}`,
+    JSON.stringify(result)
+  );
   return result;
 }
 
