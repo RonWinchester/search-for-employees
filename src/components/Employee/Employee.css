@@ -1,7 +1,15 @@
 .emploee {
   list-style: none;
+  margin-bottom: 12px;
+}
+
+.emploee__link {
   display: flex;
-  margin-bottom: 24px;
+  max-width: max-content;
+}
+
+.emploee__link:hover {
+  opacity: .7;
 }
 
 .emploee:last-of-type {
