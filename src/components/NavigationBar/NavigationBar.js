@@ -1,16 +1,20 @@
 import React from "react";
 import NavigationMenu from "../NavigationMenu/NavigationMenu";
 
-function NavigationBar({ setPopupOpen }) {
+function NavigationBar({ setPopupOpen, handleSearchEmployees }) {
   const [query, setQuery] = React.useState("");
 
   function handleSearchChange(e) {
     setQuery(e.target.value);
   }
 
+  React.useEffect(()=> {
+    handleSearchEmployees(query);
+  }, [query])
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    console.log(query);
+    handleSearchEmployees(query);
   };
   
   return (
@@ -44,4 +48,3 @@ function NavigationBar({ setPopupOpen }) {
 }
 
 export default React.memo(NavigationBar);
-/* export default NavigationBar; */

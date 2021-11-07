@@ -5,7 +5,7 @@ import { Switch, Route, useLocation } from "react-router-dom";
 import Popup from "../Popup/Popup";
 import Main from "../Main/Main";
 import Profile from "../Profile/Profile";
-import { handleSelectionProfession } from "../../utils/filter";
+import { handleSelectionProfession, handleFilter } from "../../utils/filter";
 import { department } from '../../constants/constants'
 
 function App() {
@@ -29,7 +29,7 @@ function App() {
   };
 
   const location = useLocation();
-
+  
   const setDepartments = (employees) => {
     setDesigners(handleSelectionProfession(employees, department.design));
     setAnalytics(handleSelectionProfession(employees, department.analytics));
@@ -65,6 +65,27 @@ function App() {
       });
   }, [location]);
 
+  let departments = Object.assign({}, department)
+
+  for(let key in departments) {
+    departments[key] = JSON.parse(
+      localStorage.getItem(`${key}`)
+    )
+  }
+
+  function handleSearchEmployees(query) {
+    const employeesData = JSON.parse(
+      localStorage.getItem("employeesData")
+    );
+
+    setEmployess(handleFilter(employeesData, query));
+    setDesigners(handleFilter(departments.design, query));
+    setAnalytics(handleFilter(departments.analytics, query));
+    setManagers(handleFilter(departments.management, query));
+    setIosDevelopers(handleFilter(departments.ios, query));
+    setAndroidDevelopers(handleFilter(departments.android, query));
+  }
+
   //Работа Popup
   function closeAllPopups() {
     setPopupOpen(false);
@@ -92,7 +113,7 @@ function App() {
     <div className="page__container">
       <Switch>
         <Route exact path="/">
-          <NavigationBar setPopupOpen={setPopupOpen}></NavigationBar>
+          <NavigationBar setPopupOpen={setPopupOpen} handleSearchEmployees={handleSearchEmployees}></NavigationBar>
           <Main
             employees={employees}
             preloader={preloader}
@@ -100,7 +121,7 @@ function App() {
           ></Main>
         </Route>
         <Route path="/designer">
-          <NavigationBar setPopupOpen={setPopupOpen}></NavigationBar>
+          <NavigationBar setPopupOpen={setPopupOpen} handleSearchEmployees={handleSearchEmployees}></NavigationBar>
           <Main
             employees={designers}
             preloader={preloader}
@@ -108,7 +129,7 @@ function App() {
           ></Main>
         </Route>
         <Route path="/analysts">
-          <NavigationBar setPopupOpen={setPopupOpen}></NavigationBar>
+          <NavigationBar setPopupOpen={setPopupOpen} handleSearchEmployees={handleSearchEmployees}></NavigationBar>
           <Main
             employees={analytics}
             preloader={preloader}
@@ -116,7 +137,7 @@ function App() {
           ></Main>
         </Route>
         <Route path="/managers">
-          <NavigationBar setPopupOpen={setPopupOpen}></NavigationBar>
+          <NavigationBar setPopupOpen={setPopupOpen} handleSearchEmployees={handleSearchEmployees}></NavigationBar>
           <Main
             employees={managers}
             preloader={preloader}
@@ -124,7 +145,7 @@ function App() {
           ></Main>
         </Route>
         <Route path="/ios">
-          <NavigationBar setPopupOpen={setPopupOpen}></NavigationBar>
+          <NavigationBar setPopupOpen={setPopupOpen} handleSearchEmployees={handleSearchEmployees}></NavigationBar>
           <Main
             employees={iosDevelopers}
             preloader={preloader}
@@ -132,7 +153,7 @@ function App() {
           ></Main>
         </Route>
         <Route path="/android">
-          <NavigationBar setPopupOpen={setPopupOpen}></NavigationBar>
+          <NavigationBar setPopupOpen={setPopupOpen} handleSearchEmployees={handleSearchEmployees}></NavigationBar>
           <Main
             employees={androidDevelopers}
             preloader={preloader}
