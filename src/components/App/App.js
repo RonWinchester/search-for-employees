@@ -132,6 +132,7 @@ function App() {
             employees={designers}
             preloader={preloader}
             error={error}
+            getEmploye={getEmploye}
           ></Main>
         </Route>
         <Route path="/analysts">
@@ -140,6 +141,7 @@ function App() {
             employees={analytics}
             preloader={preloader}
             error={error}
+            getEmploye={getEmploye}
           ></Main>
         </Route>
         <Route path="/managers">
@@ -148,6 +150,7 @@ function App() {
             employees={managers}
             preloader={preloader}
             error={error}
+            getEmploye={getEmploye}
           ></Main>
         </Route>
         <Route path="/ios">
@@ -156,6 +159,7 @@ function App() {
             employees={iosDevelopers}
             preloader={preloader}
             error={error}
+            getEmploye={getEmploye}
           ></Main>
         </Route>
         <Route path="/android">
@@ -164,6 +168,7 @@ function App() {
             employees={androidDevelopers}
             preloader={preloader}
             error={error}
+            getEmploye={getEmploye}
           ></Main>
         </Route>
         <Route path={`/${employeePageDate.id}`}>
