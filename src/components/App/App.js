@@ -5,23 +5,38 @@ import { Switch, Route, useLocation } from "react-router-dom";
 import Popup from "../Popup/Popup";
 import Main from "../Main/Main";
 import Profile from "../Profile/Profile";
+import { handleSelectionProfession } from "../../utils/filter";
+import { department } from '../../constants/constants'
 
 function App() {
   const [popupOpen, setPopupOpen] = React.useState(false);
   const [employees, setEmployess] = React.useState({});
   const [preloader, setPreloader] = React.useState(true);
   const [error, setError] = React.useState(false);
+  const [designers, setDesigners] = React.useState([]);
+  const [analytics, setAnalytics] = React.useState([]);
+  const [managers, setManagers] = React.useState([]);
+  const [iosDevelopers, setIosDevelopers] = React.useState([]);
+  const [androidDevelopers, setAndroidDevelopers] = React.useState([])
 
   const options = {
     method: "GET",
     url: "https://stoplight.io/mocks/kode-education/trainee-test/25143926/users",
     headers: {
       "Content-Type": "application/json",
-      Prefer: "code=500, example=error-500",
+      Prefer: "code=200, example=success",
     },
   };
 
   const location = useLocation();
+
+  const setDepartments = (employees) => {
+    setDesigners(handleSelectionProfession(employees, department.design));
+    setAnalytics(handleSelectionProfession(employees, department.analytics));
+    setManagers(handleSelectionProfession(employees, department.management));
+    setIosDevelopers(handleSelectionProfession(employees, department.ios));
+    setAndroidDevelopers(handleSelectionProfession(employees, department.android));
+  }
 
   React.useEffect(() => {
     axios
@@ -34,8 +49,8 @@ function App() {
         );
         const employeesData = JSON.parse(localStorage.getItem("employeesData"));
         setEmployess(employeesData);
+        setDepartments(employeesData)
         setPreloader(false);
-        console.log("Обновление данных");
       })
       .catch(function (error) {
         if (localStorage.getItem("employeesData") !== null) {
@@ -43,8 +58,8 @@ function App() {
           const employeesData = JSON.parse(
             localStorage.getItem("employeesData")
           );
-         return setEmployess(employeesData);
-        } 
+          return setEmployess(employeesData);
+        }
         setError(true);
         console.error(error);
       });
@@ -86,18 +101,43 @@ function App() {
         </Route>
         <Route path="/designer">
           <NavigationBar setPopupOpen={setPopupOpen}></NavigationBar>
+          <Main
+            employees={designers}
+            preloader={preloader}
+            error={error}
+          ></Main>
         </Route>
         <Route path="/analysts">
           <NavigationBar setPopupOpen={setPopupOpen}></NavigationBar>
+          <Main
+            employees={analytics}
+            preloader={preloader}
+            error={error}
+          ></Main>
         </Route>
         <Route path="/managers">
           <NavigationBar setPopupOpen={setPopupOpen}></NavigationBar>
+          <Main
+            employees={managers}
+            preloader={preloader}
+            error={error}
+          ></Main>
         </Route>
         <Route path="/ios">
           <NavigationBar setPopupOpen={setPopupOpen}></NavigationBar>
+          <Main
+            employees={iosDevelopers}
+            preloader={preloader}
+            error={error}
+          ></Main>
         </Route>
         <Route path="/android">
           <NavigationBar setPopupOpen={setPopupOpen}></NavigationBar>
+          <Main
+            employees={androidDevelopers}
+            preloader={preloader}
+            error={error}
+          ></Main>
         </Route>
         <Route path="/page">
           <Profile></Profile>
