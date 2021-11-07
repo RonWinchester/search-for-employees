@@ -86,6 +86,11 @@ function App() {
     setAndroidDevelopers(handleFilter(departments.android, query));
   }
 
+  const [employeePageDate, setEmployeePageDate] = React.useState({});
+  function getEmploye (employee) {
+    setEmployeePageDate(employee)
+  }
+
   //Работа Popup
   function closeAllPopups() {
     setPopupOpen(false);
@@ -118,6 +123,7 @@ function App() {
             employees={employees}
             preloader={preloader}
             error={error}
+            getEmploye={getEmploye}
           ></Main>
         </Route>
         <Route path="/designer">
@@ -160,8 +166,8 @@ function App() {
             error={error}
           ></Main>
         </Route>
-        <Route path="/page">
-          <Profile></Profile>
+        <Route path={`/${employeePageDate.id}`}>
+          <Profile employee={employeePageDate}></Profile>
         </Route>
       </Switch>
       <Popup
