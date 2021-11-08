@@ -18,14 +18,16 @@
 
 .profile__button {
   position: absolute;
-  top: 28px;
-  left: 32px;
+  top: 26px;
+  left: 30px;
   border: none;
   outline: none;
   background-image: url("../../images/profile-button-back.svg");
   background-repeat: no-repeat;
-  width: 7px;
-  height: 11px;
+  background-position: center;
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
   padding: 0;
   cursor: pointer;
   transition: transform 0.2s;
@@ -45,6 +47,7 @@
   width: 104px;
   height: 104px;
   object-fit: cover;
+  border-radius: 50%;
 }
 
 .profile__title {
@@ -92,7 +95,7 @@
   line-height: 20px;
   color: #050510;
   margin: 0;
-  background-image: url('../../images/profile-button-star.svg');
+  background-image: url("../../images/profile-button-star.svg");
   background-repeat: no-repeat;
   background-size: 20px 19px;
   padding-left: 33px;
@@ -105,7 +108,7 @@
   font-weight: 500;
   font-size: 16px;
   line-height: 20px;
-  color: #97979B;
+  color: #97979b;
   justify-self: flex-end;
   margin-right: 20px;
 }
@@ -117,7 +120,7 @@
   font-size: 16px;
   line-height: 20px;
   color: #050510;
-  background-image: url('../../images/profile-button-tel.svg');
+  background-image: url("../../images/profile-button-tel.svg");
   background-repeat: no-repeat;
   background-size: 20px 19px;
   padding-left: 33px;
