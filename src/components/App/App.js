@@ -5,7 +5,7 @@ import { Switch, Route, useLocation } from "react-router-dom";
 import Popup from "../Popup/Popup";
 import Main from "../Main/Main";
 import Profile from "../Profile/Profile";
-import { handleSelectionProfession, handleFilter } from "../../utils/filter";
+import { handleSelectionProfession, handleFilter, getPageProfile } from "../../utils/filter";
 import { department } from '../../constants/constants'
 
 function App() {
@@ -17,7 +17,10 @@ function App() {
   const [analytics, setAnalytics] = React.useState([]);
   const [managers, setManagers] = React.useState([]);
   const [iosDevelopers, setIosDevelopers] = React.useState([]);
-  const [androidDevelopers, setAndroidDevelopers] = React.useState([])
+  const [androidDevelopers, setAndroidDevelopers] = React.useState([]);
+
+  const [pageProfile, setPageProfile] = React.useState({});
+
 
   const options = {
     method: "GET",
@@ -50,6 +53,8 @@ function App() {
         const employeesData = JSON.parse(localStorage.getItem("employeesData"));
         setEmployess(employeesData);
         setDepartments(employeesData)
+
+        setPageProfile(getPageProfile(employeesData, location.pathname));
         setPreloader(false);
       })
       .catch(function (error) {
@@ -171,9 +176,13 @@ function App() {
             getEmploye={getEmploye}
           ></Main>
         </Route>
-        <Route path={`/${employeePageDate.id}`}>
-          <Profile employee={employeePageDate}></Profile>
-        </Route>
+        {employeePageDate.hasOwnProperty('id') ? 
+          <Route path={`/${employeePageDate.id}`}>
+            <Profile employee={employeePageDate}></Profile>
+          </Route> : 
+          <Route path={`/${pageProfile.id}`}>
+            <Profile employee={pageProfile}></Profile>
+          </Route>}
       </Switch>
       <Popup
         handleOverlayClose={handleOverlayClose}
