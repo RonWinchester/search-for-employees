@@ -2,16 +2,39 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function Emploee(props) {
+  const {
+    firstName,
+    lastName,
+    userTag,
+    position,
+    avatarUrl,
+    preloader,
+    id,
+    getEmploye,
+    birthday,
+    sorting
+  } = props;
 
-  const { firstName, lastName, userTag, position, avatarUrl, preloader, id, getEmploye } =  props;
-
-  function setEmploye () {
+  function setEmploye() {
     getEmploye(props);
+  }
+
+  const options = {
+    month: "short",
+    day: "numeric",
   };
+
+  const years = new Date(birthday).toLocaleString("ru", options);
 
   return (
     <li className="emploee">
-      <Link className="emploee__link" to={`${id}`} onClick={()=>{setEmploye()}}>
+      <Link
+        className="emploee__link"
+        to={`${id}`}
+        onClick={() => {
+          setEmploye();
+        }}
+      >
         {preloader ? (
           <>
             <div className="emploee__image emploee__preload"></div>
@@ -35,6 +58,7 @@ function Emploee(props) {
           </>
         )}
       </Link>
+      {sorting === 'ByBirthday' && <p className="emploee__years">{years.slice(0, years.length - 1)}</p>}
     </li>
   );
 }

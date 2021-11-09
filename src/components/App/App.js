@@ -23,7 +23,7 @@ function App() {
   const [managers, setManagers] = React.useState([]);
   const [iosDevelopers, setIosDevelopers] = React.useState([]);
   const [androidDevelopers, setAndroidDevelopers] = React.useState([]);
-  const [sorting, setSorting] = React.useState(true)
+  const [sorting, setSorting] = React.useState('')
 
   const [pageProfile, setPageProfile] = React.useState({});
 
@@ -138,6 +138,7 @@ function App() {
             preloader={preloader}
             error={error}
             getEmploye={getEmploye}
+            sorting={sorting}
           ></Main>
         </Route>
         <Route path="/designer">
@@ -151,6 +152,7 @@ function App() {
             preloader={preloader}
             error={error}
             getEmploye={getEmploye}
+            sorting={sorting}
           ></Main>
         </Route>
         <Route path="/analysts">
@@ -164,6 +166,7 @@ function App() {
             preloader={preloader}
             error={error}
             getEmploye={getEmploye}
+            sorting={sorting}
           ></Main>
         </Route>
         <Route path="/managers">
@@ -177,6 +180,7 @@ function App() {
             preloader={preloader}
             error={error}
             getEmploye={getEmploye}
+            sorting={sorting}
           ></Main>
         </Route>
         <Route path="/ios">
@@ -190,6 +194,7 @@ function App() {
             preloader={preloader}
             error={error}
             getEmploye={getEmploye}
+            sorting={sorting}
           ></Main>
         </Route>
         <Route path="/android">
@@ -203,6 +208,7 @@ function App() {
             preloader={preloader}
             error={error}
             getEmploye={getEmploye}
+            sorting={sorting}
           ></Main>
         </Route>
         {employeePageDate.hasOwnProperty("id") ? (
