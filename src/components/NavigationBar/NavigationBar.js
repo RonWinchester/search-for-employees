@@ -1,7 +1,7 @@
 import React from "react";
 import NavigationMenu from "../NavigationMenu/NavigationMenu";
 
-function NavigationBar({ setPopupOpen, handleSearchEmployees }) {
+function NavigationBar({ setPopupOpen, handleSearchEmployees, error }) {
   const [query, setQuery] = React.useState("");
 
   function handleSearchChange(e) {
@@ -31,6 +31,7 @@ function NavigationBar({ setPopupOpen, handleSearchEmployees }) {
               value={query}
               className="navigation-bar__input"
               placeholder="Введи имя, тег, почту..."
+              disabled={error}
             ></input>
           </label>
         </fieldset>

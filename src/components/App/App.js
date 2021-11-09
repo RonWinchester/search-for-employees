@@ -5,8 +5,12 @@ import { Switch, Route, useLocation } from "react-router-dom";
 import Popup from "../Popup/Popup";
 import Main from "../Main/Main";
 import Profile from "../Profile/Profile";
-import { handleSelectionProfession, handleFilter, getPageProfile } from "../../utils/filter";
-import { department } from '../../constants/constants'
+import {
+  handleSelectionProfession,
+  handleFilter,
+  getPageProfile,
+} from "../../utils/filter";
+import { department } from "../../constants/constants";
 
 function App() {
   const [popupOpen, setPopupOpen] = React.useState(false);
@@ -21,7 +25,6 @@ function App() {
 
   const [pageProfile, setPageProfile] = React.useState({});
 
-
   const options = {
     method: "GET",
     url: "https://stoplight.io/mocks/kode-education/trainee-test/25143926/users",
@@ -32,14 +35,16 @@ function App() {
   };
 
   const location = useLocation();
-  
+
   const setDepartments = (employees) => {
     setDesigners(handleSelectionProfession(employees, department.design));
     setAnalytics(handleSelectionProfession(employees, department.analytics));
     setManagers(handleSelectionProfession(employees, department.management));
     setIosDevelopers(handleSelectionProfession(employees, department.ios));
-    setAndroidDevelopers(handleSelectionProfession(employees, department.android));
-  }
+    setAndroidDevelopers(
+      handleSelectionProfession(employees, department.android)
+    );
+  };
 
   React.useEffect(() => {
     axios
@@ -52,7 +57,7 @@ function App() {
         );
         const employeesData = JSON.parse(localStorage.getItem("employeesData"));
         setEmployess(employeesData);
-        setDepartments(employeesData)
+        setDepartments(employeesData);
 
         setPageProfile(getPageProfile(employeesData, location.pathname));
         setPreloader(false);
@@ -70,18 +75,14 @@ function App() {
       });
   }, [location]);
 
-  let departments = Object.assign({}, department)
+  let departments = Object.assign({}, department);
 
-  for(let key in departments) {
-    departments[key] = JSON.parse(
-      localStorage.getItem(`${key}`)
-    )
+  for (let key in departments) {
+    departments[key] = JSON.parse(localStorage.getItem(`${key}`));
   }
 
   function handleSearchEmployees(query) {
-    const employeesData = JSON.parse(
-      localStorage.getItem("employeesData")
-    );
+    const employeesData = JSON.parse(localStorage.getItem("employeesData"));
 
     setEmployess(handleFilter(employeesData, query));
     setDesigners(handleFilter(departments.design, query));
@@ -92,8 +93,8 @@ function App() {
   }
 
   const [employeePageDate, setEmployeePageDate] = React.useState({});
-  function getEmploye (employee) {
-    setEmployeePageDate(employee)
+  function getEmploye(employee) {
+    setEmployeePageDate(employee);
   }
 
   //Работа Popup
@@ -123,7 +124,11 @@ function App() {
     <div className="page__container">
       <Switch>
         <Route exact path="/">
-          <NavigationBar setPopupOpen={setPopupOpen} handleSearchEmployees={handleSearchEmployees}></NavigationBar>
+          <NavigationBar
+            setPopupOpen={setPopupOpen}
+            handleSearchEmployees={handleSearchEmployees}
+            error={error}
+          ></NavigationBar>
           <Main
             employees={employees}
             preloader={preloader}
@@ -132,7 +137,11 @@ function App() {
           ></Main>
         </Route>
         <Route path="/designer">
-          <NavigationBar setPopupOpen={setPopupOpen} handleSearchEmployees={handleSearchEmployees}></NavigationBar>
+          <NavigationBar
+            setPopupOpen={setPopupOpen}
+            handleSearchEmployees={handleSearchEmployees}
+            error={error}
+          ></NavigationBar>
           <Main
             employees={designers}
             preloader={preloader}
@@ -141,7 +150,11 @@ function App() {
           ></Main>
         </Route>
         <Route path="/analysts">
-          <NavigationBar setPopupOpen={setPopupOpen} handleSearchEmployees={handleSearchEmployees}></NavigationBar>
+          <NavigationBar
+            setPopupOpen={setPopupOpen}
+            handleSearchEmployees={handleSearchEmployees}
+            error={error}
+          ></NavigationBar>
           <Main
             employees={analytics}
             preloader={preloader}
@@ -150,7 +163,11 @@ function App() {
           ></Main>
         </Route>
         <Route path="/managers">
-          <NavigationBar setPopupOpen={setPopupOpen} handleSearchEmployees={handleSearchEmployees}></NavigationBar>
+          <NavigationBar
+            setPopupOpen={setPopupOpen}
+            handleSearchEmployees={handleSearchEmployees}
+            error={error}
+          ></NavigationBar>
           <Main
             employees={managers}
             preloader={preloader}
@@ -159,7 +176,11 @@ function App() {
           ></Main>
         </Route>
         <Route path="/ios">
-          <NavigationBar setPopupOpen={setPopupOpen} handleSearchEmployees={handleSearchEmployees}></NavigationBar>
+          <NavigationBar
+            setPopupOpen={setPopupOpen}
+            handleSearchEmployees={handleSearchEmployees}
+            error={error}
+          ></NavigationBar>
           <Main
             employees={iosDevelopers}
             preloader={preloader}
@@ -168,7 +189,11 @@ function App() {
           ></Main>
         </Route>
         <Route path="/android">
-          <NavigationBar setPopupOpen={setPopupOpen} handleSearchEmployees={handleSearchEmployees}></NavigationBar>
+          <NavigationBar
+            setPopupOpen={setPopupOpen}
+            handleSearchEmployees={handleSearchEmployees}
+            error={error}
+          ></NavigationBar>
           <Main
             employees={androidDevelopers}
             preloader={preloader}
@@ -176,13 +201,15 @@ function App() {
             getEmploye={getEmploye}
           ></Main>
         </Route>
-        {employeePageDate.hasOwnProperty('id') ? 
+        {employeePageDate.hasOwnProperty("id") ? (
           <Route path={`/${employeePageDate.id}`}>
             <Profile employee={employeePageDate}></Profile>
-          </Route> : 
+          </Route>
+        ) : (
           <Route path={`/${pageProfile.id}`}>
             <Profile employee={pageProfile}></Profile>
-          </Route>}
+          </Route>
+        )}
       </Switch>
       <Popup
         handleOverlayClose={handleOverlayClose}
