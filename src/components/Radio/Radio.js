@@ -1,11 +1,17 @@
 import React from "react";
 
-function Radio() {
-  const [checked, setChecked] = React.useState(false);
+function Radio({setSorting, onClose}) {
+  const [checked, setChecked] = React.useState('ByABC');
+  
 
-  function handleRadio() {
-    setChecked(!checked);
+  function handleRadio(e) {
+    setChecked(e.target.value);
   }
+  React.useEffect(()=>{
+    setSorting(checked)
+    onClose();
+  },[setSorting, checked])
+  
 
   return (
     <form className="radio">
@@ -16,7 +22,8 @@ function Radio() {
           name="radio"
           id="radio-1"
           onChange={handleRadio}
-          checked
+          value='ByABC'
+          checked={checked === 'ByABC'}
         />
         <label htmlFor="radio">
           По алфавиту
@@ -29,7 +36,8 @@ function Radio() {
           name="radio"
           id="radio-2"
           onChange={handleRadio}
-
+          value='ByBirthday'
+          checked={checked === 'ByBirthday'}
         />
         <label htmlFor="radio">
           По дню рождения

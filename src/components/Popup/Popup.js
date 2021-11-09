@@ -1,7 +1,7 @@
 import React from "react";
 import Radio from "../Radio/Radio";
 
-function Popup({ isOpen, handleOverlayClose, onClose }) {
+function Popup({ isOpen, handleOverlayClose, onClose, setSorting}) {
   return (
     <div
       className={`sort ${isOpen ? "sort_opened" : ""}`}
@@ -14,7 +14,7 @@ function Popup({ isOpen, handleOverlayClose, onClose }) {
           type="button"
           onClick={onClose}
         />
-        <Radio></Radio>
+        <Radio setSorting={setSorting} onClose={onClose}></Radio>
       </div>
     </div>
   );

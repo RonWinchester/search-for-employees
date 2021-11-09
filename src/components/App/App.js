@@ -9,6 +9,7 @@ import {
   handleSelectionProfession,
   handleFilter,
   getPageProfile,
+  setSort,
 } from "../../utils/filter";
 import { department } from "../../constants/constants";
 
@@ -22,6 +23,7 @@ function App() {
   const [managers, setManagers] = React.useState([]);
   const [iosDevelopers, setIosDevelopers] = React.useState([]);
   const [androidDevelopers, setAndroidDevelopers] = React.useState([]);
+  const [sorting, setSorting] = React.useState(true)
 
   const [pageProfile, setPageProfile] = React.useState({});
 
@@ -51,9 +53,11 @@ function App() {
       .request(options)
       .then((response) => {
         setError(false);
+        const data = response.data.items
+        setSort(data, sorting)
         localStorage.setItem(
           "employeesData",
-          JSON.stringify(response.data.items)
+          JSON.stringify(data)
         );
         const employeesData = JSON.parse(localStorage.getItem("employeesData"));
         setEmployess(employeesData);
@@ -73,7 +77,7 @@ function App() {
         setError(true);
         console.error(error);
       });
-  }, [location]);
+  }, [location, sorting]);
 
   let departments = Object.assign({}, department);
 
@@ -215,6 +219,7 @@ function App() {
         handleOverlayClose={handleOverlayClose}
         isOpen={popupOpen}
         onClose={closeAllPopups}
+        setSorting={setSorting}
       ></Popup>
     </div>
   );

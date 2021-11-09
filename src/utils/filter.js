@@ -47,4 +47,19 @@ export function getPageProfile(employees, url) {
     default:
       return employees.find((employee) => employee.id === url.slice(1));
   }
+};
+
+export function setSort(arr, value) {
+
+  function abc (a, b){
+    if(a.firstName.toLowerCase() < b.firstName.toLowerCase()) return -1;
+    if(a.firstName.toLowerCase() > b.firstName.toLowerCase()) return 1;
+  }
+
+  function ByBirthday (a, b){
+    return new Date(b.birthday) - new Date(a.birthday);
+  }
+
+  if(value === 'ByABC') {
+    return arr.sort(abc)} else { return arr.sort(ByBirthday)}
 }
