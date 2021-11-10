@@ -13,7 +13,7 @@ function Emploee(props) {
     getEmploye,
     birthday,
     sorting,
-    newYear
+    newYear,
   } = props;
 
   function setEmploye() {
@@ -25,14 +25,25 @@ function Emploee(props) {
     day: "numeric",
   };
 
-  const years = new Date(birthday).toLocaleString("ru", options);
-  const year = new Date().getFullYear() + 1;
+  let years = new Date(birthday).toLocaleString("ru", options);
+  const nextYear = new Date().getFullYear() + 1;
+
+  function deleteСharacter(years) {
+    if (years[years.length - 1] === ".") {
+      return years.slice(0, years.length - 1);
+    } else {
+      return years;
+    }
+  }
+
+  years = deleteСharacter(years);
+  console.log(deleteСharacter(years));
 
   return (
     <>
       {newYear ? (
         <li className="emploee emploee_position-center">
-          <p className="new-year">{year}</p>
+          <p className="new-year">{nextYear}</p>
         </li>
       ) : (
         <li className="emploee">
@@ -67,7 +78,7 @@ function Emploee(props) {
             )}
           </Link>
           {sorting === "ByBirthday" && (
-            <p className="emploee__years">{years.slice(0, years.length)}</p>
+            <p className="emploee__years">{years}</p>
           )}
         </li>
       )}
