@@ -47,19 +47,71 @@ export function getPageProfile(employees, url) {
     default:
       return employees.find((employee) => employee.id === url.slice(1));
   }
-};
+}
 
 export function setSort(arr, value) {
-
-  function abc (a, b){
-    if(a.firstName.toLowerCase() < b.firstName.toLowerCase()) return -1;
-    if(a.firstName.toLowerCase() > b.firstName.toLowerCase()) return 1;
+  function abc(a, b) {
+    if (a.firstName.toLowerCase() < b.firstName.toLowerCase()) return -1;
+    if (a.firstName.toLowerCase() > b.firstName.toLowerCase()) return 1;
   }
 
-  function ByBirthday (a, b){
-    return new Date(b.birthday) - new Date(a.birthday);
+  function ByBirthday(a, b) {
+    if (new Date(a.birthday).getMonth() < new Date(b.birthday).getMonth()) {
+      return -1;
+    }
+    if (new Date(a.birthday).getMonth() === new Date(b.birthday).getMonth()) {
+      if (new Date(a.birthday).getDate() < new Date(b.birthday).getDate())
+        return -1;
+      if (new Date(a.birthday).getDate() > new Date(b.birthday).getDate())
+        return 1;
+      return 0;
+    }
+    if (new Date(a.birthday).getMonth() > new Date(b.birthday).getMonth())
+      return 1;
   }
 
-  if(value === 'ByABC') {
-    return arr.sort(abc)} else { return arr.sort(ByBirthday)}
+  const date = new Date();
+
+  function setNearestDate(dates) {
+    const after = [];
+    const before = [];
+    let now = [];
+    for (let i = 0; i < dates.length; i++) {
+      const arrDate = new Date(dates[i].birthday).getMonth();
+      const diff = (arrDate - date.getMonth()) / (3600 * 24 * 1000);
+      if (diff < 0) {
+        after.push(dates[i]);
+      } else {
+        before.push(dates[i]);
+      }
+    }
+
+    for (let i = 0; i < before.length; i++) {
+      if (new Date(before[i].birthday).getMonth() === date.getMonth()) {
+        const arrDate = new Date(before[i].birthday).getDate();
+        const diff = (arrDate - date.getDate()) / (3600 * 24 * 1000);
+        if (diff < 0) {
+          after.push(before[i]);
+        } else {
+          now.push(before[i]);
+        }
+      } else {
+        now.push(before[i]);
+      }
+    }
+
+    let result = [];
+    result = result.concat(now, after);
+    return result;
+  }
+
+  if (value === "ByABC") {
+    return arr.sort(abc);
+  } else {
+    arr.sort(ByBirthday);
+
+    const nearstDates = setNearestDate(arr);
+
+    return nearstDates;
+  }
 }

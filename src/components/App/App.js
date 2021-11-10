@@ -53,11 +53,9 @@ function App() {
       .request(options)
       .then((response) => {
         setError(false);
-        const data = response.data.items
-        setSort(data, sorting)
         localStorage.setItem(
           "employeesData",
-          JSON.stringify(data)
+          JSON.stringify(setSort(response.data.items, sorting))
         );
         const employeesData = JSON.parse(localStorage.getItem("employeesData"));
         setEmployess(employeesData);
