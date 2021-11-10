@@ -3,13 +3,13 @@ import CriticalError from "../CriticalError/CriticalError";
 import EmploeesList from "../EmploeesList/EmploeesList";
 
 
-function Main({ employees, preloader, error, getEmploye, sorting }) {
+function Main({ employees, preloader, error, getEmploye, sorting, setRestart }) {
   const arr = Array.from({ length: 8 }, () => ({}));
 
   return (
     <>
       {error ? (
-        <CriticalError />
+        <CriticalError setRestart={setRestart}/>
       ) : (
         <main className="main">
           {preloader ? (

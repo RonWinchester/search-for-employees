@@ -1,7 +1,7 @@
 import React from "react";
 import image from "../../images/critical-error-image.png";
 
-function CriticalError() {
+function CriticalError({setRestart}) {
   return (
     <div className="critical-error">
       <img
@@ -11,7 +11,7 @@ function CriticalError() {
       ></img>
       <h1 className="critical-error__title">Какой-то сверхразум все сломал</h1>
       <p className="critical-error__description">Постараемся быстро починить</p>
-      <button className="critical-error__button">Попробовать снова</button>
+      <button className="critical-error__button" onClick={()=>{setRestart(true)}}>Попробовать снова</button>
     </div>
   );
 }

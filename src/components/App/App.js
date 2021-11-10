@@ -23,7 +23,8 @@ function App() {
   const [managers, setManagers] = React.useState([]);
   const [iosDevelopers, setIosDevelopers] = React.useState([]);
   const [androidDevelopers, setAndroidDevelopers] = React.useState([]);
-  const [sorting, setSorting] = React.useState('')
+  const [sorting, setSorting] = React.useState('');
+  const [restart, setRestart] = React.useState(false)
 
   const [pageProfile, setPageProfile] = React.useState({});
 
@@ -49,6 +50,7 @@ function App() {
   };
 
   React.useEffect(() => {
+    setPreloader(true);
     axios
       .request(options)
       .then((response) => {
@@ -63,6 +65,7 @@ function App() {
 
         setPageProfile(getPageProfile(employeesData, location.pathname));
         setPreloader(false);
+        setRestart(false);
       })
       .catch(function (error) {
         if (localStorage.getItem("employeesData") !== null) {
@@ -73,9 +76,11 @@ function App() {
           return setEmployess(employeesData);
         }
         setError(true);
+        setRestart(false)
         console.error(error);
       });
-  }, [location, sorting]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location, sorting, restart]);
 
   let departments = Object.assign({}, department);
 
@@ -137,6 +142,7 @@ function App() {
             error={error}
             getEmploye={getEmploye}
             sorting={sorting}
+            setRestart={setRestart}
           ></Main>
         </Route>
         <Route path="/designer">
@@ -151,6 +157,7 @@ function App() {
             error={error}
             getEmploye={getEmploye}
             sorting={sorting}
+            setRestart={setRestart}
           ></Main>
         </Route>
         <Route path="/analysts">
@@ -165,6 +172,7 @@ function App() {
             error={error}
             getEmploye={getEmploye}
             sorting={sorting}
+            setRestart={setRestart}
           ></Main>
         </Route>
         <Route path="/managers">
@@ -179,6 +187,7 @@ function App() {
             error={error}
             getEmploye={getEmploye}
             sorting={sorting}
+            setRestart={setRestart}
           ></Main>
         </Route>
         <Route path="/ios">
@@ -193,6 +202,7 @@ function App() {
             error={error}
             getEmploye={getEmploye}
             sorting={sorting}
+            setRestart={setRestart}
           ></Main>
         </Route>
         <Route path="/android">
@@ -207,6 +217,7 @@ function App() {
             error={error}
             getEmploye={getEmploye}
             sorting={sorting}
+            setRestart={setRestart}
           ></Main>
         </Route>
         {employeePageDate.hasOwnProperty("id") ? (
