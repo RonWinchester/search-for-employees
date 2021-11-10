@@ -1,7 +1,8 @@
 export function handleSelectionProfession(employees, profession) {
   let result = [];
   employees.forEach((employee) => {
-    employee.department === profession && result.push(employee);
+    if(employee.newYear === true) {result.push(employee)} else if ( employee.department === profession)
+    {result.push(employee)};
   });
 
   localStorage.setItem(`${profession}`, JSON.stringify(result));
@@ -73,7 +74,7 @@ export function setSort(arr, value) {
   const date = new Date();
 
   function setNearestDate(dates) {
-    const after = [];
+    const after = [{newYear:true}];
     const before = [];
     let now = [];
     for (let i = 0; i < dates.length; i++) {
