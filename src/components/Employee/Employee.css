@@ -77,6 +77,43 @@
   font-weight: normal;
   font-size: 15px;
   line-height: 20px;
-  color: #55555C;
+  color: #55555c;
   margin-left: auto;
+}
+
+.new-year {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 20px;
+  color: #c3c3c6;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+
+.emploee_position-center {
+  justify-content: center;
+  margin: 24px 0;
+}
+
+.new-year::before, .new-year::after {
+  content: '';
+  border: 1px solid #C3C3C6;
+  height: 0;
+  width: 100%;
+  display: inline-block;
+  border-radius: 20%;
+}
+
+.new-year::before {
+  margin-right: 70px;
+  margin-left: 24px;
+}
+
+.new-year::after {
+  margin-left: 70px;
+  margin-right: 24px;
 }

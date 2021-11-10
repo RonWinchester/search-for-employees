@@ -12,7 +12,8 @@ function Emploee(props) {
     id,
     getEmploye,
     birthday,
-    sorting
+    sorting,
+    newYear
   } = props;
 
   function setEmploye() {
@@ -25,41 +26,52 @@ function Emploee(props) {
   };
 
   const years = new Date(birthday).toLocaleString("ru", options);
+  const year = new Date().getFullYear() + 1;
 
   return (
-    <li className="emploee">
-      <Link
-        className="emploee__link"
-        to={`${id}`}
-        onClick={() => {
-          setEmploye();
-        }}
-      >
-        {preloader ? (
-          <>
-            <div className="emploee__image emploee__preload"></div>
-            <dl className="emploee__info">
-              <dd className="emploee__name emploee__preload emploee__preload_name">
-                <span className="emploee__initials"></span>
-              </dd>
-              <dt className="emploee__specialization emploee__preload emploee__preload_specialization"></dt>
-            </dl>
-          </>
-        ) : (
-          <>
-            <img src={avatarUrl} alt="" className="emploee__image" />
-            <dl className="emploee__info">
-              <dd className="emploee__name">
-                {`${firstName} ${lastName}`}
-                <span className="emploee__initials">{userTag}</span>
-              </dd>
-              <dt className="emploee__specialization">{position}</dt>
-            </dl>
-          </>
-        )}
-      </Link>
-      {sorting === 'ByBirthday' && <p className="emploee__years">{years.slice(0, years.length - 1)}</p>}
-    </li>
+    <>
+      {newYear ? (
+        <li className="emploee emploee_position-center">
+          <p className="new-year">{year}</p>
+        </li>
+      ) : (
+        <li className="emploee">
+          <Link
+            className="emploee__link"
+            to={`${id}`}
+            onClick={() => {
+              setEmploye();
+            }}
+          >
+            {preloader ? (
+              <>
+                <div className="emploee__image emploee__preload"></div>
+                <dl className="emploee__info">
+                  <dd className="emploee__name emploee__preload emploee__preload_name">
+                    <span className="emploee__initials"></span>
+                  </dd>
+                  <dt className="emploee__specialization emploee__preload emploee__preload_specialization"></dt>
+                </dl>
+              </>
+            ) : (
+              <>
+                <img src={avatarUrl} alt="" className="emploee__image" />
+                <dl className="emploee__info">
+                  <dd className="emploee__name">
+                    {`${firstName} ${lastName}`}
+                    <span className="emploee__initials">{userTag}</span>
+                  </dd>
+                  <dt className="emploee__specialization">{position}</dt>
+                </dl>
+              </>
+            )}
+          </Link>
+          {sorting === "ByBirthday" && (
+            <p className="emploee__years">{years.slice(0, years.length)}</p>
+          )}
+        </li>
+      )}
+    </>
   );
 }
 
