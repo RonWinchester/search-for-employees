@@ -182,7 +182,7 @@ function App() {
     };
   });
 
-  const data = [
+  const routePages = [
     { link: "/", employees: employees },
     { link: "/designer", employees: designers },
     { link: "/analysts", employees: analytics },
@@ -202,7 +202,7 @@ function App() {
     <div className="page__container">
       <ErrorMessage status={status} connection={connection} online={online} />
       <Switch>
-        {data.map((page,index) => (
+        {routePages.map((page,index) => (
           <Route exact path={page.link} key={index}>
             <NavigationBar
               setPopupOpen={setPopupOpen}
