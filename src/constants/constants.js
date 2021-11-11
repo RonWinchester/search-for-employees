@@ -21,7 +21,7 @@ export const links = [
   { link: "/ios", name: "iOS" },
   { link: "/android", name: "Android" },
   { link: "/qa", name: "QA" },
-  { link: "/back_office", name: "Бэк-офис" },
+  { link: "/back_office", name: 'Бэк\u2011офис' },
   { link: "/hr", name: "HR" },
   { link: "/pr", name: "PR" },
   { link: "/backend", name: "Backend" },
