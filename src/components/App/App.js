@@ -12,6 +12,7 @@ import {
   setSort,
 } from "../../utils/filter";
 import { department } from "../../constants/constants";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
 
 function App() {
   const [popupOpen, setPopupOpen] = React.useState(false);
@@ -23,10 +24,13 @@ function App() {
   const [managers, setManagers] = React.useState([]);
   const [iosDevelopers, setIosDevelopers] = React.useState([]);
   const [androidDevelopers, setAndroidDevelopers] = React.useState([]);
-  const [sorting, setSorting] = React.useState('');
-  const [restart, setRestart] = React.useState(false)
-
+  const [sorting, setSorting] = React.useState("");
+  const [restart, setRestart] = React.useState(false);
+  const [status, setStatus] = React.useState(true);
+  const [connection, setConnection] = React.useState(false);
   const [pageProfile, setPageProfile] = React.useState({});
+  const [online, setOnline] = React.useState(false);
+  const [employeePageDate, setEmployeePageDate] = React.useState({});
 
   const options = {
     method: "GET",
@@ -49,8 +53,21 @@ function App() {
     );
   };
 
+  React.useEffect(
+    () => (status ? setRestart(true) : setRestart(false)),
+    [status]
+  );
+
+  window.addEventListener("online", () => setStatus(window.navigator.onLine));
+  window.addEventListener("offline", () => {
+    setStatus(window.navigator.onLine);
+    setOnline(true);
+  });
+
   React.useEffect(() => {
     setPreloader(true);
+    setConnection(true);
+    restart && setOnline(true);
     axios
       .request(options)
       .then((response) => {
@@ -59,6 +76,10 @@ function App() {
           "employeesData",
           JSON.stringify(setSort(response.data.items, sorting))
         );
+        localStorage.setItem(
+          "employeesDataByABC",
+          JSON.stringify(setSort(response.data.items, "ByABC"))
+        );
         const employeesData = JSON.parse(localStorage.getItem("employeesData"));
         setEmployess(employeesData);
         setDepartments(employeesData);
@@ -66,20 +87,30 @@ function App() {
         setPageProfile(getPageProfile(employeesData, location.pathname));
         setPreloader(false);
         setRestart(false);
+        setConnection(false);
+        setOnline(false);
       })
-      .catch(function (error) {
+      .catch((e) => {
         if (localStorage.getItem("employeesData") !== null) {
+          setConnection(false);
           setPreloader(false);
           const employeesData = JSON.parse(
-            localStorage.getItem("employeesData")
+            localStorage.getItem("employeesDataByABC")
           );
-          return setEmployess(employeesData);
+          e.response.data.key === "InternalServerError"
+            ? setOnline(false)
+            : setOnline(true);
+          return setEmployess(setSort(employeesData, sorting));
         }
         setError(true);
-        setRestart(false)
+        setRestart(false);
+        setConnection(false);
+        e.response.data.key === "InternalServerError"
+          ? setOnline(false)
+          : setOnline(true);
         console.error(error);
       });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location, sorting, restart]);
 
   let departments = Object.assign({}, department);
@@ -99,7 +130,6 @@ function App() {
     setAndroidDevelopers(handleFilter(departments.android, query));
   }
 
-  const [employeePageDate, setEmployeePageDate] = React.useState({});
   function getEmploye(employee) {
     setEmployeePageDate(employee);
   }
@@ -127,8 +157,10 @@ function App() {
       document.removeEventListener("keyup", handleEscClose);
     };
   });
+
   return (
     <div className="page__container">
+      <ErrorMessage status={status} connection={connection} online={online} />
       <Switch>
         <Route exact path="/">
           <NavigationBar

@@ -37,7 +37,6 @@ function Emploee(props) {
   }
 
   years = deleteСharacter(years);
-  console.log(deleteСharacter(years));
 
   return (
     <>
