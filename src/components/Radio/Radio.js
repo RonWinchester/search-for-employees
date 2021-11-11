@@ -10,6 +10,7 @@ function Radio({setSorting, onClose}) {
   React.useEffect(()=>{
     setSorting(checked)
     onClose();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[setSorting, checked])
   
 

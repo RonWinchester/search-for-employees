@@ -10,6 +10,7 @@ function NavigationBar({ setPopupOpen, handleSearchEmployees, error }) {
 
   React.useEffect(()=> {
     handleSearchEmployees(query);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query])
 
   const handleSubmit = (evt) => {

@@ -19,6 +19,7 @@ export function handleFilter(employees, query) {
         employee.lastName.toLowerCase().includes(query.toLowerCase()) ||
         employee.userTag.toLowerCase().includes(query.toLowerCase())
       )} else {
+        // eslint-disable-next-line array-callback-return
         return
       }
     });
