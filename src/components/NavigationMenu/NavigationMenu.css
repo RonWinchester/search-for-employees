@@ -24,7 +24,7 @@
 }
 
 
-@media screen and (max-width: 485px) {
+@media screen and (max-width: 1066px) {
   .navigation-menu {
     overflow: auto;
   }
