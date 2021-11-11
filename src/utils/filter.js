@@ -1,8 +1,11 @@
 export function handleSelectionProfession(employees, profession) {
   let result = [];
   employees.forEach((employee) => {
-    if(employee.newYear === true) {result.push(employee)} else if ( employee.department === profession)
-    {result.push(employee)};
+    if (employee.newYear === true) {
+      result.push(employee);
+    } else if (employee.department === profession) {
+      result.push(employee);
+    }
   });
 
   localStorage.setItem(`${profession}`, JSON.stringify(result));
@@ -13,14 +16,15 @@ export function handleFilter(employees, query) {
   let result = [];
   if (query.length !== 0) {
     result = employees.filter((employee) => {
-      if(!employee.newYear)
-      {return (
-        employee.firstName.toLowerCase().includes(query.toLowerCase()) ||
-        employee.lastName.toLowerCase().includes(query.toLowerCase()) ||
-        employee.userTag.toLowerCase().includes(query.toLowerCase())
-      )} else {
+      if (!employee.newYear) {
+        return (
+          employee.firstName.toLowerCase().includes(query.toLowerCase()) ||
+          employee.lastName.toLowerCase().includes(query.toLowerCase()) ||
+          employee.userTag.toLowerCase().includes(query.toLowerCase())
+        );
+      } else {
         // eslint-disable-next-line array-callback-return
-        return
+        return;
       }
     });
   } else {
@@ -30,6 +34,7 @@ export function handleFilter(employees, query) {
 }
 
 export function getPageProfile(employees, url) {
+
   switch (url) {
     case "/":
       return {};
@@ -47,6 +52,27 @@ export function getPageProfile(employees, url) {
       return {};
 
     case "/android":
+      return {};
+
+    case "/qa":
+      return {};
+
+    case "/back_office":
+      return {};
+
+    case "/hr":
+      return {};
+
+    case "/pr":
+      return {};
+
+    case "/backend":
+      return {};
+
+    case "/support":
+      return {};
+
+    case "/frontend":
       return {};
 
     default:
@@ -78,7 +104,7 @@ export function setSort(arr, value) {
   const date = new Date();
 
   function setNearestDate(dates) {
-    const after = [{newYear:true}];
+    const after = [{ newYear: true }];
     const before = [];
     let now = [];
     for (let i = 0; i < dates.length; i++) {

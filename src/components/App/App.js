@@ -24,6 +24,15 @@ function App() {
   const [managers, setManagers] = React.useState([]);
   const [iosDevelopers, setIosDevelopers] = React.useState([]);
   const [androidDevelopers, setAndroidDevelopers] = React.useState([]);
+
+  const [qa, setQa] = React.useState([]);
+  const [backOffice, setBackOffice] = React.useState([]);
+  const [frontend, setFrontend] = React.useState([]);
+  const [hr, setHr] = React.useState([]);
+  const [pr, setPr] = React.useState([]);
+  const [backend, setBackend] = React.useState([]);
+  const [support, setSupport] = React.useState([]);
+
   const [sorting, setSorting] = React.useState("");
   const [restart, setRestart] = React.useState(false);
   const [status, setStatus] = React.useState(true);
@@ -51,6 +60,13 @@ function App() {
     setAndroidDevelopers(
       handleSelectionProfession(employees, department.android)
     );
+    setQa(handleSelectionProfession(employees, department.qa));
+    setBackOffice(handleSelectionProfession(employees, department.back_office));
+    setFrontend(handleSelectionProfession(employees, department.frontend));
+    setHr(handleSelectionProfession(employees, department.hr));
+    setPr(handleSelectionProfession(employees, department.pr));
+    setBackend(handleSelectionProfession(employees, department.backend));
+    setSupport(handleSelectionProfession(employees, department.support));
   };
 
   React.useEffect(
@@ -128,6 +144,14 @@ function App() {
     setManagers(handleFilter(departments.management, query));
     setIosDevelopers(handleFilter(departments.ios, query));
     setAndroidDevelopers(handleFilter(departments.android, query));
+
+    setQa(handleFilter(departments.qa, query));
+    setBackOffice(handleFilter(departments.back_office, query));
+    setFrontend(handleFilter(departments.frontend, query));
+    setHr(handleFilter(departments.hr, query));
+    setPr(handleFilter(departments.pr, query));
+    setBackend(handleFilter(departments.backend, query));
+    setSupport(handleFilter(departments.support, query));
   }
 
   function getEmploye(employee) {
@@ -158,100 +182,43 @@ function App() {
     };
   });
 
+  const data = [
+    { link: "/", employees: employees },
+    { link: "/designer", employees: designers },
+    { link: "/analysts", employees: analytics },
+    { link: "/managers", employees: managers },
+    { link: "/ios", employees: iosDevelopers },
+    { link: "/android", employees: androidDevelopers },
+    { link: "/qa", employees: qa },
+    { link: "/back_office", employees: backOffice },
+    { link: "/hr", employees: hr },
+    { link: "/pr", employees: pr },
+    { link: "/backend", employees: backend },
+    { link: "/support", employees: support },
+    { link: "/frontend", employees: frontend }
+  ];
+
   return (
     <div className="page__container">
       <ErrorMessage status={status} connection={connection} online={online} />
       <Switch>
-        <Route exact path="/">
-          <NavigationBar
-            setPopupOpen={setPopupOpen}
-            handleSearchEmployees={handleSearchEmployees}
-            error={error}
-          ></NavigationBar>
-          <Main
-            employees={employees}
-            preloader={preloader}
-            error={error}
-            getEmploye={getEmploye}
-            sorting={sorting}
-            setRestart={setRestart}
-          ></Main>
-        </Route>
-        <Route path="/designer">
-          <NavigationBar
-            setPopupOpen={setPopupOpen}
-            handleSearchEmployees={handleSearchEmployees}
-            error={error}
-          ></NavigationBar>
-          <Main
-            employees={designers}
-            preloader={preloader}
-            error={error}
-            getEmploye={getEmploye}
-            sorting={sorting}
-            setRestart={setRestart}
-          ></Main>
-        </Route>
-        <Route path="/analysts">
-          <NavigationBar
-            setPopupOpen={setPopupOpen}
-            handleSearchEmployees={handleSearchEmployees}
-            error={error}
-          ></NavigationBar>
-          <Main
-            employees={analytics}
-            preloader={preloader}
-            error={error}
-            getEmploye={getEmploye}
-            sorting={sorting}
-            setRestart={setRestart}
-          ></Main>
-        </Route>
-        <Route path="/managers">
-          <NavigationBar
-            setPopupOpen={setPopupOpen}
-            handleSearchEmployees={handleSearchEmployees}
-            error={error}
-          ></NavigationBar>
-          <Main
-            employees={managers}
-            preloader={preloader}
-            error={error}
-            getEmploye={getEmploye}
-            sorting={sorting}
-            setRestart={setRestart}
-          ></Main>
-        </Route>
-        <Route path="/ios">
-          <NavigationBar
-            setPopupOpen={setPopupOpen}
-            handleSearchEmployees={handleSearchEmployees}
-            error={error}
-          ></NavigationBar>
-          <Main
-            employees={iosDevelopers}
-            preloader={preloader}
-            error={error}
-            getEmploye={getEmploye}
-            sorting={sorting}
-            setRestart={setRestart}
-          ></Main>
-        </Route>
-        <Route path="/android">
-          <NavigationBar
-            setPopupOpen={setPopupOpen}
-            handleSearchEmployees={handleSearchEmployees}
-            error={error}
-          ></NavigationBar>
-          <Main
-            employees={androidDevelopers}
-            preloader={preloader}
-            error={error}
-            getEmploye={getEmploye}
-            sorting={sorting}
-            setRestart={setRestart}
-          ></Main>
-        </Route>
+        {data.map((page,index) => (
+          <Route exact path={page.link} key={index}>
+            <NavigationBar
+              setPopupOpen={setPopupOpen}
+              handleSearchEmployees={handleSearchEmployees}
+              error={error}
+            ></NavigationBar>
+            <Main
+              employees={page.employees}
+              preloader={preloader}
+              error={error}
+              getEmploye={getEmploye}
+              sorting={sorting}
+              setRestart={setRestart}
+            ></Main>
+          </Route>
+        ))}
         {employeePageDate.hasOwnProperty("id") ? (
           <Route path={`/${employeePageDate.id}`}>
             <Profile employee={employeePageDate}></Profile>
