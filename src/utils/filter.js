@@ -13,11 +13,14 @@ export function handleFilter(employees, query) {
   let result = [];
   if (query.length !== 0) {
     result = employees.filter((employee) => {
-      return (
+      if(!employee.newYear)
+      {return (
         employee.firstName.toLowerCase().includes(query.toLowerCase()) ||
         employee.lastName.toLowerCase().includes(query.toLowerCase()) ||
         employee.userTag.toLowerCase().includes(query.toLowerCase())
-      );
+      )} else {
+        return
+      }
     });
   } else {
     result = employees;
