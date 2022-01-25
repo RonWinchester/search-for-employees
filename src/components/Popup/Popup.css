@@ -1,3 +1,7 @@
+.empty {
+  display: block;
+}
+
 .sort {
   position: fixed;
   left: 0;
