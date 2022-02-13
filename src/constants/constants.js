@@ -17,7 +17,7 @@ export const links = [
   { link: "/", name: "Все" },
   { link: "/designer", name: "Дизайн" },
   { link: "/analysts", name: "Аналитика" },
-  { link: "/managers", name: "Менеджмент" },
+  { link: "/management", name: "Менеджмент" },
   { link: "/ios", name: "iOS" },
   { link: "/android", name: "Android" },
   { link: "/qa", name: "QA" },

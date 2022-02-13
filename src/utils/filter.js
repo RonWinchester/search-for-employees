@@ -45,7 +45,7 @@ export function getPageProfile(employees, url) {
     case "/analysts":
       return {};
 
-    case "/managers":
+    case "/management":
       return {};
 
     case "/ios":

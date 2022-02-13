@@ -13,26 +13,13 @@ import {
 } from "../../utils/filter";
 import { department } from "../../constants/constants";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import { useDispatch, useSelector } from "react-redux";
 
 function App() {
   const [popupOpen, setPopupOpen] = React.useState(false);
   const [employees, setEmployess] = React.useState({});
   const [preloader, setPreloader] = React.useState(true);
   const [error, setError] = React.useState(false);
-  const [designers, setDesigners] = React.useState([]);
-  const [analytics, setAnalytics] = React.useState([]);
-  const [managers, setManagers] = React.useState([]);
-  const [iosDevelopers, setIosDevelopers] = React.useState([]);
-  const [androidDevelopers, setAndroidDevelopers] = React.useState([]);
-
-  const [qa, setQa] = React.useState([]);
-  const [backOffice, setBackOffice] = React.useState([]);
-  const [frontend, setFrontend] = React.useState([]);
-  const [hr, setHr] = React.useState([]);
-  const [pr, setPr] = React.useState([]);
-  const [backend, setBackend] = React.useState([]);
-  const [support, setSupport] = React.useState([]);
-
   const [sorting, setSorting] = React.useState("");
   const [restart, setRestart] = React.useState(false);
   const [status, setStatus] = React.useState(true);
@@ -40,6 +27,9 @@ function App() {
   const [pageProfile, setPageProfile] = React.useState({});
   const [online, setOnline] = React.useState(false);
   const [employeePageDate, setEmployeePageDate] = React.useState({});
+
+  const dispatch = useDispatch();
+  const store = useSelector((state) => state);
 
   const options = {
     method: "GET",
@@ -53,20 +43,12 @@ function App() {
   const location = useLocation();
 
   const setDepartments = (employees) => {
-    setDesigners(handleSelectionProfession(employees, department.design));
-    setAnalytics(handleSelectionProfession(employees, department.analytics));
-    setManagers(handleSelectionProfession(employees, department.management));
-    setIosDevelopers(handleSelectionProfession(employees, department.ios));
-    setAndroidDevelopers(
-      handleSelectionProfession(employees, department.android)
-    );
-    setQa(handleSelectionProfession(employees, department.qa));
-    setBackOffice(handleSelectionProfession(employees, department.back_office));
-    setFrontend(handleSelectionProfession(employees, department.frontend));
-    setHr(handleSelectionProfession(employees, department.hr));
-    setPr(handleSelectionProfession(employees, department.pr));
-    setBackend(handleSelectionProfession(employees, department.backend));
-    setSupport(handleSelectionProfession(employees, department.support));
+    Object.keys(department).forEach((key) => {
+      dispatch({
+        type: key,
+        payload: handleSelectionProfession(employees, key),
+      });
+    });
   };
 
   React.useEffect(
@@ -139,19 +121,10 @@ function App() {
     const employeesData = JSON.parse(localStorage.getItem("employeesData"));
 
     setEmployess(handleFilter(employeesData, query));
-    setDesigners(handleFilter(departments.design, query));
-    setAnalytics(handleFilter(departments.analytics, query));
-    setManagers(handleFilter(departments.management, query));
-    setIosDevelopers(handleFilter(departments.ios, query));
-    setAndroidDevelopers(handleFilter(departments.android, query));
-
-    setQa(handleFilter(departments.qa, query));
-    setBackOffice(handleFilter(departments.back_office, query));
-    setFrontend(handleFilter(departments.frontend, query));
-    setHr(handleFilter(departments.hr, query));
-    setPr(handleFilter(departments.pr, query));
-    setBackend(handleFilter(departments.backend, query));
-    setSupport(handleFilter(departments.support, query));
+    Object.keys(department).forEach((key) => {
+      console.log(departments[key])
+      dispatch({ type: key, payload: handleFilter(departments[key], query) });
+    });
   }
 
   function getEmploye(employee) {
@@ -184,25 +157,25 @@ function App() {
 
   const routePages = [
     { link: "/", employees: employees },
-    { link: "/designer", employees: designers },
-    { link: "/analysts", employees: analytics },
-    { link: "/managers", employees: managers },
-    { link: "/ios", employees: iosDevelopers },
-    { link: "/android", employees: androidDevelopers },
-    { link: "/qa", employees: qa },
-    { link: "/back_office", employees: backOffice },
-    { link: "/hr", employees: hr },
-    { link: "/pr", employees: pr },
-    { link: "/backend", employees: backend },
-    { link: "/support", employees: support },
-    { link: "/frontend", employees: frontend }
+    { link: "/designer", employees: store.design },
+    { link: "/analysts", employees: store.analytics },
+    { link: "/management", employees: store.management },
+    { link: "/ios", employees: store.ios },
+    { link: "/android", employees: store.android },
+    { link: "/qa", employees: store.qa },
+    { link: "/back_office", employees: store.back_office },
+    { link: "/hr", employees: store.hr },
+    { link: "/pr", employees: store.pr },
+    { link: "/backend", employees: store.backend },
+    { link: "/support", employees: store.support },
+    { link: "/frontend", employees: store.frontend },
   ];
 
   return (
     <div className="page__container">
       <ErrorMessage status={status} connection={connection} online={online} />
       <Switch>
-        {routePages.map((page,index) => (
+        {routePages.map((page, index) => (
           <Route exact path={page.link} key={index}>
             <NavigationBar
               setPopupOpen={setPopupOpen}
