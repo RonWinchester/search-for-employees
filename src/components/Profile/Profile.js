@@ -1,9 +1,10 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+import goose from '../../images/goose.png'
 
 function Profile(props) {
   const history = useHistory();
-  const { firstName, lastName, userTag, position, avatarUrl, birthday, phone } =
+  const { firstName, lastName, userTag, position, birthday, phone } =
     props.employee;
 
   const options = {
@@ -24,7 +25,7 @@ function Profile(props) {
         ></button>
         <article className="profile__bio">
           <img
-            src={avatarUrl}
+            src={goose}
             alt={`${firstName} ${lastName}`}
             className="profile__image"
           ></img>

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import goose from '../../images/goose.png'
 
 function Emploee(props) {
   const {
@@ -7,7 +8,6 @@ function Emploee(props) {
     lastName,
     userTag,
     position,
-    avatarUrl,
     preloader,
     id,
     getEmploye,
@@ -65,7 +65,7 @@ function Emploee(props) {
               </>
             ) : (
               <>
-                <img src={avatarUrl} alt="" className="emploee__image" />
+                <img src={goose} alt="" className="emploee__image" />
                 <dl className="emploee__info">
                   <dd className="emploee__name">
                     {`${firstName} ${lastName}`}
