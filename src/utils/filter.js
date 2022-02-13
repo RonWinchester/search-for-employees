@@ -39,10 +39,10 @@ export function getPageProfile(employees, url) {
     case "/":
       return {};
 
-    case "/designer":
+    case "/design":
       return {};
 
-    case "/analysts":
+    case "/analytics":
       return {};
 
     case "/management":

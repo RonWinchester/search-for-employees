@@ -119,12 +119,15 @@ function App() {
 
   function handleSearchEmployees(query) {
     const employeesData = JSON.parse(localStorage.getItem("employeesData"));
-
     setEmployess(handleFilter(employeesData, query));
-    Object.keys(department).forEach((key) => {
-      console.log(departments[key])
-      dispatch({ type: key, payload: handleFilter(departments[key], query) });
-    });
+    if (location.pathname === "/") {
+      return handleFilter(employeesData, query);
+    } else {
+      return dispatch({
+        type: location.pathname.slice(1),
+        payload: handleFilter(departments[location.pathname.slice(1)], query),
+      });
+    }
   }
 
   function getEmploye(employee) {
@@ -157,8 +160,8 @@ function App() {
 
   const routePages = [
     { link: "/", employees: employees },
-    { link: "/designer", employees: store.design },
-    { link: "/analysts", employees: store.analytics },
+    { link: "/design", employees: store.design },
+    { link: "/analytics", employees: store.analytics },
     { link: "/management", employees: store.management },
     { link: "/ios", employees: store.ios },
     { link: "/android", employees: store.android },

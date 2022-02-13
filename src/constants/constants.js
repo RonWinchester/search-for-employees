@@ -15,8 +15,8 @@ export const department = {
 
 export const links = [
   { link: "/", name: "Все" },
-  { link: "/designer", name: "Дизайн" },
-  { link: "/analysts", name: "Аналитика" },
+  { link: "/design", name: "Дизайн" },
+  { link: "/analytics", name: "Аналитика" },
   { link: "/management", name: "Менеджмент" },
   { link: "/ios", name: "iOS" },
   { link: "/android", name: "Android" },
